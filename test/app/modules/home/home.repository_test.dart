@@ -1,5 +1,6 @@
 import 'package:bemol/app/core/app_error.dart';
 import 'package:bemol/app/core/entitys/product.dart';
+import 'package:bemol/app/core/services/shared_prefrence.dart';
 import 'package:bemol/app/modules/home/home.repository.dart';
 import 'package:bemol/app/modules/home/home_errors.dart';
 import 'package:dartz/dartz.dart';
@@ -11,13 +12,17 @@ import '../../../constants/constants.dart';
 
 class DioMock extends Mock implements Dio {}
 
+class SharedPreferencesAppMock extends Mock implements SharedPreferencesApp {}
+
 void main() {
   late final HomeRepository repository;
   late final Dio dio;
+  late final SharedPreferencesApp preferences;
 
-  setUp(() {
+  setUpAll(() {
     dio = DioMock();
-    repository = HomeRepositoryImpl(dio: dio);
+    preferences = SharedPreferencesAppMock();
+    repository = HomeRepositoryImpl(dio: dio, preferences: preferences);
   });
   group('Test in HomeRepository', () {
     test('should  return List the Product', () async {
