@@ -1,10 +1,10 @@
 import 'package:bemol/app/core/app_color.dart';
 import 'package:bemol/app/core/models/product_model.dart';
+import 'package:bemol/app/modules/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/entitys/product.dart';
-import '../../../core/services/shared_prefrence.dart';
 import '../../../core/snackbar_manager/snackbar_manager.dart';
 
 class FavoriteButton extends StatefulWidget {
@@ -16,26 +16,25 @@ class FavoriteButton extends StatefulWidget {
 }
 
 class _FavoriteButtonState extends State<FavoriteButton> {
-  late final SharedPreferencesApp preferences;
-  final ValueNotifier<bool> _isFavorite = ValueNotifier(false);
+  late final HomeController _controller;
+  late final ValueNotifier<bool> _isFavorite;
   @override
   void initState() {
     super.initState();
-    preferences = Modular.get<SharedPreferencesApp>();
+    _controller = Modular.get<HomeController>();
+    _isFavorite = _controller.getProductFavoriteNotifier(widget.product);
     checkIsFavoriteIcon();
   }
 
   Future<void> addOrRemoveProductInShared() async {
-    await preferences.addOrRemoveProductInShared(
+    await _controller.addOrRemoveFavoriteProduct(
       ProductModel.productFromModel(widget.product),
     );
   }
 
   Future<void> checkIsFavoriteIcon() async {
-    bool responseFavorite = await preferences
+    bool responseFavorite = await _controller
         .checkExistingProduct(ProductModel.productFromModel(widget.product));
-    print(responseFavorite);
-
     _isFavorite.value = responseFavorite;
   }
 
@@ -56,7 +55,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: _isFavorite,
+      valueListenable: _controller.getProductFavoriteNotifier(widget.product),
       builder: (context, value, child) {
         return IconButton(
             icon: _isFavorite.value == true

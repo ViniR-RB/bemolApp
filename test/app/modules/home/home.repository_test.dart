@@ -62,5 +62,33 @@ void main() {
       final result = await repository.getAllFavoritesProducts();
       expect(result.fold(id, id), isA<AppError>());
     });
+    test('should return void in Add Or Remove Favorite Product', () async {
+      final ProductModel productModel = productsModelList[0];
+      when(() => preferences.addOrRemoveProductInShared(productModel))
+          .thenAnswer((_) => Future.value());
+      final result = await repository.addOrRemoveFavoriteProduct(productModel);
+      expect(result, const Right(unit));
+    });
+    test('should return AppError in Add Or Remove Favorite Product', () async {
+      final ProductModel productModel = productsModelList[0];
+      when(() => preferences.addOrRemoveProductInShared(productModel))
+          .thenThrow(Exception('Error'));
+      final result = await repository.addOrRemoveFavoriteProduct(productModel);
+      expect(result.fold(id, id), isA<AppError>());
+    });
+    test('should return bool in Check Existing Product', () async {
+      final ProductModel productModel = productsModelList[0];
+      when(() => preferences.checkExistingProduct(productModel))
+          .thenAnswer((_) => Future.value(true));
+      final result = await repository.checkExistingProduct(productModel);
+      expect(result.fold(id, id), isA<bool>());
+    });
+    test('should return AppError in Check Existing Product', () async {
+      final ProductModel productModel = productsModelList[0];
+      when(() => preferences.checkExistingProduct(productModel))
+          .thenThrow(Exception('Error'));
+      final result = await repository.checkExistingProduct(productModel);
+      expect(result.fold(id, id), isA<AppError>());
+    });
   });
 }

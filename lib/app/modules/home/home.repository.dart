@@ -1,4 +1,5 @@
 import 'package:bemol/app/core/app_error.dart';
+import 'package:bemol/app/core/models/product_model.dart';
 import 'package:bemol/app/core/services/shared_prefrence.dart';
 import 'package:bemol/app/modules/home/home_errors.dart';
 import 'package:dartz/dartz.dart';
@@ -10,6 +11,9 @@ import 'home_adapters.dart';
 abstract class HomeRepository {
   Future<Either<AppError, List<Product>>> getAllProducts();
   Future<Either<AppError, List<Product>>> getAllFavoritesProducts();
+  Future<Either<AppError, Unit>> addOrRemoveFavoriteProduct(
+      ProductModel product);
+  Future<Either<AppError, bool>> checkExistingProduct(ProductModel product);
 }
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -39,6 +43,30 @@ class HomeRepositoryImpl implements HomeRepository {
       return Right(response);
     } catch (error) {
       return Left(AppError(message: error.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppError, Unit>> addOrRemoveFavoriteProduct(
+      ProductModel product) async {
+    try {
+      await preferences.addOrRemoveProductInShared(product);
+      return const Right(unit);
+    } catch (e) {
+      return Left(
+          AppError(message: 'Houve algum problema com os produtos Favoritos'));
+    }
+  }
+
+  @override
+  Future<Either<AppError, bool>> checkExistingProduct(
+      ProductModel product) async {
+    try {
+      final response = await preferences.checkExistingProduct(product);
+      return Right(response);
+    } catch (e) {
+      return Left(
+          AppError(message: 'Houve algum problema com os produtos Favoritos'));
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bemol/app/core/utils/string_extensions.dart';
+import 'package:bemol/app/modules/home/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/app_color.dart';
@@ -13,9 +14,7 @@ class ProductDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Product Details'),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite))
-        ],
+        actions: [FavoriteButton(product: product)],
       ),
       body: SingleChildScrollView(
         child: Column(children: [
