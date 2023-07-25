@@ -1,5 +1,6 @@
 import 'package:bemol/app/core/app_error.dart';
 import 'package:bemol/app/core/entitys/product.dart';
+import 'package:bemol/app/core/models/product_model.dart';
 import 'package:bemol/app/core/services/shared_prefrence.dart';
 import 'package:bemol/app/modules/home/home.repository.dart';
 import 'package:bemol/app/modules/home/home_errors.dart';
@@ -42,10 +43,23 @@ void main() {
       final result = await repository.getAllProducts();
       expect(result.fold(id, id), isA<HomeFetchError>());
     });
-    test('should return AppError when to catch any Exception ', () async {
+    test('should return AppError when to catch any Exception', () async {
       final Exception exception = Exception('');
       when(() => dio.get(any())).thenThrow(exception);
       final result = await repository.getAllProducts();
+      expect(result.fold(id, id), isA<AppError>());
+    });
+    test('should  return List<ProductModel> in get all favorite products',
+        () async {
+      when(() => preferences.getProductListFavorite())
+          .thenAnswer((_) async => productsModelList);
+      final result = await repository.getAllFavoritesProducts();
+      expect(result.fold(id, id), isA<List<ProductModel>>());
+    });
+    test('should me return AppError in get all favorite products', () async {
+      final Exception exception = Exception('');
+      when(() => preferences.getProductListFavorite()).thenThrow(exception);
+      final result = await repository.getAllFavoritesProducts();
       expect(result.fold(id, id), isA<AppError>());
     });
   });

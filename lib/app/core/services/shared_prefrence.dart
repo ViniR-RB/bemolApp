@@ -5,7 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/product_model.dart';
 
 class SharedPreferencesApp {
-  SharedPreferencesApp();
+  final Future<SharedPreferences> pref;
+  SharedPreferencesApp({required this.pref});
 
   Future<void> addOrRemoveProductInShared(ProductModel product) async {
     final List<ProductModel> productList = await getProductListFavorite();
@@ -18,8 +19,8 @@ class SharedPreferencesApp {
   }
 
   Future<List<ProductModel>> getProductListFavorite() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String productJson = prefs.getString('productListFavotire') ?? '';
+    SharedPreferences prefs = await pref;
+    String productJson =  prefs.getString('productListFavotire') ?? '';
     if (productJson.isNotEmpty) {
       List<dynamic> productMapList = json.decode(productJson);
       List<ProductModel> productList = productMapList
@@ -33,7 +34,7 @@ class SharedPreferencesApp {
   }
 
   Future<void> saveProductListInShared(List<ProductModel> productList) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await pref;
     List<Map<String, dynamic>> productMapList =
         productList.map((product) => product.toMap()).toList();
     String productJson = json.encode(productMapList);

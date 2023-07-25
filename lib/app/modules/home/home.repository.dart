@@ -28,11 +28,7 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(HomeFetchError(
           message: error.message ?? 'Houve um Error Inesperado'));
     } catch (error) {
-      if (error is Exception) {
-        return Left(AppError(message: error.toString()));
-      } else {
-        return Left(AppError(message: 'Houve um Error Inesperado'));
-      }
+      return Left(AppError(message: error.toString()));
     }
   }
 
@@ -42,11 +38,7 @@ class HomeRepositoryImpl implements HomeRepository {
       final List<Product> response = await preferences.getProductListFavorite();
       return Right(response);
     } catch (error) {
-      if (error is Exception) {
-        return Left(AppError(message: error.toString()));
-      } else {
-        return Left(AppError(message: 'Houve um Error Inesperado'));
-      }
+      return Left(AppError(message: error.toString()));
     }
   }
 }

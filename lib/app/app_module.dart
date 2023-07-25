@@ -4,6 +4,7 @@ import 'package:bemol/app/modules/home/pages/error_page.dart';
 import 'package:bemol/app/modules/home/pages/product_details.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/app_configure.dart';
 import 'core/services/shared_prefrence.dart';
@@ -17,7 +18,10 @@ class AppModule extends Module {
         Bind<HomeRepository>(
             (i) => HomeRepositoryImpl(dio: i.get(), preferences: i.get())),
         Bind((i) => HomeController(i.get())),
-        Bind.lazySingleton((i) => SharedPreferencesApp())
+        Bind<Future<SharedPreferences>>(
+          (i) => SharedPreferences.getInstance(),
+        ),
+        Bind.lazySingleton((i) => SharedPreferencesApp(pref: i.get()))
       ];
 
   @override
