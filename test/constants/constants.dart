@@ -251,6 +251,7 @@ final List<ProductModel> productsModelList = [
       category: 'electronics',
       image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
       rate: 2.9,
+      
       count: 250)
 ];
 const productListJson =

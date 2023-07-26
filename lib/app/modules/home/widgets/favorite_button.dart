@@ -33,9 +33,8 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   }
 
   Future<void> checkIsFavoriteIcon() async {
-    bool responseFavorite = await _controller
+    _isFavorite.value = await _controller
         .checkExistingProduct(ProductModel.productFromModel(widget.product));
-    _isFavorite.value = responseFavorite;
   }
 
   showSnackActionInButton() {
@@ -55,7 +54,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: _controller.getProductFavoriteNotifier(widget.product),
+      valueListenable: _isFavorite,
       builder: (context, value, child) {
         return IconButton(
             icon: _isFavorite.value == true

@@ -14,10 +14,10 @@ import 'modules/home/pages/home_page.dart';
 class AppModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind((i) => Dio(BaseOptions(baseUrl: AppConfigure.apiUrl))),
+        Bind<Dio>((i) => Dio(BaseOptions(baseUrl: AppConfigure.apiUrl))),
         Bind<HomeRepository>(
             (i) => HomeRepositoryImpl(dio: i.get(), preferences: i.get())),
-        Bind((i) => HomeController(i.get())),
+        Bind<HomeController>((i) => HomeController(i.get())),
         Bind<Future<SharedPreferences>>(
           (i) => SharedPreferences.getInstance(),
         ),

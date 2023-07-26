@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
-class Product {
+class Product extends Equatable {
   final int id;
   final String title;
   final double price;
@@ -21,10 +20,6 @@ class Product {
     required this.count,
   });
 
-
-
-  
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -37,4 +32,8 @@ class Product {
       'count': count,
     };
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
 }

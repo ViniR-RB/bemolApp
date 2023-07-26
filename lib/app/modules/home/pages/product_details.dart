@@ -24,7 +24,9 @@ class ProductDetailsPage extends StatelessWidget {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 309,
-              child: Image.network(product.image),
+              child: Image(
+                image: NetworkImage(product.image),
+              ),
             ),
           ),
           Padding(

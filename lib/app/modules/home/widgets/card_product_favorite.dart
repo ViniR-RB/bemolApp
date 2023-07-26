@@ -23,8 +23,8 @@ class CardProductFavorite extends StatelessWidget {
                 width: 126,
                 height: 121,
                 padding: const EdgeInsets.only(left: 18),
-                child: Image.network(
-                  product.image,
+                child: Image(
+                  image: NetworkImage(product.image),
                 ),
               ),
               const SizedBox(

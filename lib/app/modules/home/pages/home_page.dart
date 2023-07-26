@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 );
               } else if (value is HomeGetAllProductsErrorState) {
-                Modular.to.pushNamed('/error', arguments: value.message);
+                Modular.to.navigate('/error', arguments: value.message);
                 return const SizedBox.shrink();
               } else {
                 return const SizedBox.shrink();
