@@ -11,6 +11,7 @@ class HomeController {
   final HomeRepository _repository;
   final ValueNotifier<AppState> _state = ValueNotifier(HomeInitialState());
   final ValueNotifier<List<Product>> _productsFavorite = ValueNotifier([]);
+  final ValueNotifier<List<Product>> _products = ValueNotifier([]);
   final Map<Product, ValueNotifier<bool>> _isFavoriteMap = {};
   HomeController(this._repository);
 
@@ -24,8 +25,21 @@ class HomeController {
       for (var product in r) {
         _isFavoriteMap[product] = ValueNotifier(false);
       }
+      _products.value = r;
       _emit(HomeGetAllProductsLoadedState(products: r));
     });
+  }
+
+  void filterListProduct(String title) {
+    if (title.isEmpty) {
+      _emit(HomeGetAllProductsLoadedState(products: _products.value));
+      return;
+    }
+    _emit(HomeGetAllProductsLoadedState(
+        products: _products.value
+            .where((element) =>
+                element.title.toLowerCase().contains(title.toLowerCase()))
+            .toList()));
   }
 
   Future<void> getAllFavoritesProducts() async {
@@ -61,5 +75,6 @@ class HomeController {
 
   ValueNotifier<AppState> get notifier => _state;
   ValueNotifier<List<Product>> get productsFavorite => _productsFavorite;
+  ValueNotifier<List<Product>> get products => _products;
   Map<Product, ValueNotifier<bool>> get isFavoriteMap => _isFavoriteMap;
 }

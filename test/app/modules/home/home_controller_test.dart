@@ -126,8 +126,7 @@ void main() {
     test('should return ValueNotifier with false for a non-favorite product',
         () async {
       final Product product = productsList[0];
-      when(() => controllerMock.isFavoriteMap[product])
-          .thenReturn(null);
+      when(() => controllerMock.isFavoriteMap[product]).thenReturn(null);
       when(() => controllerMock.getProductFavoriteNotifier(product))
           .thenReturn(ValueNotifier(false));
       final notifier =
@@ -138,7 +137,8 @@ void main() {
     test('should return ValueNotifier with true for a favorite product',
         () async {
       final Product product = productsList[0];
-      when(() => controllerMock.isFavoriteMap[product]).thenReturn(ValueNotifier(true));
+      when(() => controllerMock.isFavoriteMap[product])
+          .thenReturn(ValueNotifier(true));
       when(() => controllerMock.getProductFavoriteNotifier(productsList[0]))
           .thenReturn(ValueNotifier(true));
       final notifier =
@@ -147,6 +147,89 @@ void main() {
       expect(notifier, isA<ValueNotifier<bool>>());
 
       expect(notifier.value, isTrue);
+    });
+    test('filterListProduct should return all products when title is empty',
+        () {
+      controller.products.value = productsList;
+      controller.filterListProduct('');
+      expect(controller.notifier.value, isA<HomeGetAllProductsLoadedState>());
+      final newState =
+          controller.notifier.value as HomeGetAllProductsLoadedState;
+      expect(newState.products, productsList);
+    });
+    test('filterListProduct should return filtered products', () {
+      List<Product> productsList = [
+        Product(
+            id: 13,
+            title:
+                'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin',
+            price: 599,
+            description:
+                '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz',
+            category: 'electronics',
+            image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
+            rate: 2.9,
+            count: 250),
+        Product(
+            id: 13,
+            title: 'Mans',
+            price: 599,
+            description:
+                '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz',
+            category: 'electronics',
+            image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
+            rate: 2.9,
+            count: 250)
+      ];
+      controller.products.value = productsList;
+      controller.filterListProduct('Acer');
+      expect(controller.notifier.value, isA<HomeGetAllProductsLoadedState>());
+      final newState =
+          controller.notifier.value as HomeGetAllProductsLoadedState;
+      expect(newState.products, [
+        Product(
+            id: 13,
+            title:
+                'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin',
+            price: 599,
+            description:
+                '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz',
+            category: 'electronics',
+            image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
+            rate: 2.9,
+            count: 250)
+      ]);
+    });
+    test('filterListProduct should return filtered products empty', () {
+      List<Product> productsList = [
+        Product(
+            id: 13,
+            title:
+                'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin',
+            price: 599,
+            description:
+                '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz',
+            category: 'electronics',
+            image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
+            rate: 2.9,
+            count: 250),
+        Product(
+            id: 13,
+            title: 'Mans',
+            price: 599,
+            description:
+                '21. 5 inches Full HD (1920 x 1080) widescreen IPS display And Radeon free Sync technology. No compatibility for VESA Mount Refresh Rate: 75Hz - Using HDMI port Zero-frame design | ultra-thin | 4ms response time | IPS panel Aspect ratio - 16: 9. Color Supported - 16. 7 million colors. Brightness - 250 nit Tilt angle -5 degree to 15 degree. Horizontal viewing angle-178 degree. Vertical viewing angle-178 degree 75 hertz',
+            category: 'electronics',
+            image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
+            rate: 2.9,
+            count: 250)
+      ];
+      controller.products.value = productsList;
+      controller.filterListProduct('Acer dshajkhdkjashdjkashdkjhkj');
+      expect(controller.notifier.value, isA<HomeGetAllProductsLoadedState>());
+      final newState =
+          controller.notifier.value as HomeGetAllProductsLoadedState;
+      expect(newState.products, isEmpty);
     });
   });
 }

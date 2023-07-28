@@ -41,15 +41,16 @@ class _HomePageState extends State<HomePage> {
               ))
         ],
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          const SearchTextField(),
-          ValueListenableBuilder(
-            valueListenable: _controller.notifier,
-            builder: (context, value, child) {
-              if (value is HomeGetAllProductsLoadedState) {
-                return Expanded(
+      body: ValueListenableBuilder(
+        valueListenable: _controller.notifier,
+        builder: (context, value, child) {
+          if (value is HomeGetAllProductsLoadedState) {
+            return Column(
+              children: [
+                SearchTextField(
+                  onChanged: _controller.filterListProduct,
+                ),
+                Expanded(
                   child: LayoutBuilder(
                     builder: (p0, size) {
                       return SizedBox(
@@ -66,27 +67,27 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                   ),
-                );
-              } else if (value is HomeGetAllProductsLoadingState) {
-                return LayoutBuilder(
-                  builder: (p0, size) {
-                    return SizedBox(
-                        width: size.maxWidth,
-                        height: size.maxWidth,
-                        child: const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ));
-                  },
-                );
-              } else if (value is HomeGetAllProductsErrorState) {
-                Modular.to.navigate('/error', arguments: value.message);
-                return const SizedBox.shrink();
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
-        ],
+                ),
+              ],
+            );
+          } else if (value is HomeGetAllProductsLoadingState) {
+            return LayoutBuilder(
+              builder: (p0, size) {
+                return SizedBox(
+                    width: size.maxWidth,
+                    height: size.maxWidth,
+                    child: const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ));
+              },
+            );
+          } else if (value is HomeGetAllProductsErrorState) {
+            Modular.to.navigate('/error', arguments: value.message);
+            return const SizedBox.shrink();
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
       ),
     );
   }

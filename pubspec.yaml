@@ -56,7 +56,11 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   modular_test: ^2.0.0
   mocktail_image_network: ^0.3.1
-
+  flutter_launcher_icons: ^0.13.1
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/iconapp.jpeg"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -73,6 +77,7 @@ flutter:
     - .env
     - assets/images/emptylist.png
     - assets/images/errorimage.png
+    - assets/iconapp.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

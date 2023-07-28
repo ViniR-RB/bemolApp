@@ -178,8 +178,8 @@ void main() {
           ValueNotifier(HomeGetAllProductsErrorState(message: 'message')));
       when(() => controller.getAllProducts()).thenAnswer((_) => Future.value());
       await tester.pumpAndSettle();
-      verify(
-          () => navigate.navigate(any(), arguments: any(named: 'arguments')));
+      verify(() =>
+          navigate.navigate('/error', arguments: any(named: 'arguments')));
     });
   });
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../core/app_color.dart';
+
 class ErrorPage extends StatelessWidget {
   final String message;
   const ErrorPage({super.key, required this.message});
@@ -11,18 +13,24 @@ class ErrorPage extends StatelessWidget {
         body: Stack(
       children: [
         Center(
-          child: Column(children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
               child: Image.asset('assets/images/errorimage.png'),
             ),
-            Text(message)
+            Text(message,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: AppColor.titleAppBarColor.withOpacity(0.65)))
           ]),
         ),
         Container(
           alignment: Alignment.bottomCenter,
           child: TextButton(
-              onPressed: () => Modular.to.navigate('/home'),
-              child: const Text('Go Home')),
+              onPressed: () => Modular.to.navigate('/'),
+              child: Text('Go Home',
+                  style: TextStyle(
+                      fontSize: 16, color: AppColor.blueColorButton))),
         )
       ],
     ));

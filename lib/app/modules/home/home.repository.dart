@@ -29,10 +29,10 @@ class HomeRepositoryImpl implements HomeRepository {
           data.map(HomeAdapters.dynamicFromProduct).toList();
       return Right(products);
     } on DioException catch (error) {
-      return Left(HomeFetchError(
-          message: error.message ?? 'Houve um Error Inesperado'));
+      return Left(
+          HomeFetchError(message: error.message ?? 'Houve um Erro na Conexão'));
     } catch (error) {
-      return Left(AppError(message: error.toString()));
+      return Left(AppError(message: 'Houve um Error Inesperado'));
     }
   }
 
@@ -63,6 +63,7 @@ class HomeRepositoryImpl implements HomeRepository {
       ProductModel product) async {
     try {
       final response = await preferences.checkExistingProduct(product);
+
       return Right(response);
     } catch (e) {
       return Left(
