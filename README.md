@@ -1,16 +1,12 @@
-# bemol
+# Bemol App
 
-A new Flutter project.
+Projeto de teste para Bemol Digital
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Package
+- Dio
+- SharedPreferences
+- Mocktail
+- SVG
+## Figma
+- [Figma](https://www.figma.com/file/mNgC26HuTYGaiRvpPVZFkR/test?type=design&node-id=1-183&mode=design&t=zRQ1iDjxNGJLoafv-0)
+- [Explicação no Youtube do App](https://youtu.be/5p5R_YF5EKo)
