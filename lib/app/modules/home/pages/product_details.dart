@@ -1,8 +1,10 @@
 import 'package:bemol/app/core/utils/string_extensions.dart';
 import 'package:bemol/app/modules/home/widgets/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../core/app_color.dart';
+import '../../../core/app_icons.dart';
 import '../../../core/entitys/product.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -81,7 +83,11 @@ class ProductDetailsPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.category),
+                    SvgPicture.asset(
+                      AppIconsSvg.iconBurguer,
+                      width: 18,
+                      height: 18,
+                    ),
                     const SizedBox(
                       width: 13,
                     ),
@@ -98,8 +104,10 @@ class ProductDetailsPage extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
-                      Icons.category,
+                    SvgPicture.asset(
+                      AppIconsSvg.iconBurguerComplete,
+                      width: 18,
+                      height: 18,
                     ),
                     const SizedBox(
                         width: 13), // Espaçamento entre o ícone e o texto

@@ -71,6 +71,9 @@ class CardProduct extends StatelessWidget {
                               ],
                             ),
                           ),
+                          const SizedBox(
+                            width: 8,
+                          ),
                           FavoriteButton(product: product)
                         ],
                       ),

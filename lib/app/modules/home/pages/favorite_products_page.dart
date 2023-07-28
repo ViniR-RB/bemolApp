@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../widgets/card_product_favorite.dart';
-import '../widgets/search_field.dart';
 
 class FavoriteProductsPage extends StatefulWidget {
   const FavoriteProductsPage({super.key});
@@ -72,7 +71,6 @@ class _FavoriteProductsPageState extends State<FavoriteProductsPage> {
                       ]),
                     );
             },
-            child: const SearchTextField(),
           )
         ],
       ),

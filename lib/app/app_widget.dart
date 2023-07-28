@@ -13,6 +13,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp.router(
       title: 'Application Name',
       scaffoldMessengerKey: SnackBarManager.snackKey,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           scaffoldBackgroundColor: AppColor.scaffoldBackgroundColor,
           appBarTheme: AppBarTheme(
