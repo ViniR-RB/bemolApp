@@ -6,11 +6,10 @@ import '../../../core/app_color.dart';
 class SearchTextField extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
-  const SearchTextField({
-    Key? key,
-    this.controller,
-    this.onChanged,
-  }) : super(key: key);
+  final String? hintText;
+  const SearchTextField(
+      {Key? key, this.controller, this.onChanged, this.hintText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class SearchTextField extends StatelessWidget {
               ),
               fillColor: const Color(0xFFF0F1F2),
               prefixIconColor: AppColor.titleAppBarColor,
-              label: const Text('Search Anything'),
+              hintText: hintText,
               border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(12)))),

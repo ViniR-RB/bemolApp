@@ -49,26 +49,27 @@ class CardProduct extends StatelessWidget {
                               color: AppColor.titleAppBarColor,
                               letterSpacing: 0.6)),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star_sharp,
-                                color: AppColor.starColor,
-                              ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              Text(
-                                '${product.rate} (${product.count} reviews)',
-                                style: TextStyle(
-                                    color: AppColor.titleAppBarColor
-                                        .withOpacity(0.65),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.star_sharp,
+                                  color: AppColor.starColor,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  '${product.rate} (${product.count} reviews)',
+                                  style: TextStyle(
+                                      color: AppColor.titleAppBarColor
+                                          .withOpacity(0.65),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
                           ),
                           FavoriteButton(product: product)
                         ],

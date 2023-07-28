@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 SearchTextField(
                   onChanged: _controller.filterListProduct,
+                  hintText: 'Search Anything',
                 ),
                 Expanded(
                   child: LayoutBuilder(
